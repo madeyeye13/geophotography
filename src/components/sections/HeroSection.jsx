@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    { image: '/image/himage01.jpg', indicator: '1/3', buttonText: 'Geo Ibadan', buttonHref: '/geo-ibadan' },
-    { image: '/image/himage2.jpg', indicator: '2/3', buttonText: 'Geo Ile-Ife', buttonHref: '/geo-ile-ife' },
-    { image: '/image/himage3.jpg', indicator: '3/3', buttonText: 'Geo UK', buttonHref: '/geo-uk' }
-  ];
+  const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
 
+const slides = [
+  { image: asset("image/himage01.jpg"), indicator: "1/3", buttonText: "Geo Ibadan", buttonHref: "/geo-ibadan" },
+  { image: asset("image/himage2.jpg"), indicator: "2/3", buttonText: "Geo Ile-Ife", buttonHref: "/geo-ile-ife" },
+  { image: asset("image/himage3.jpg"), indicator: "3/3", buttonText: "Geo UK", buttonHref: "/geo-uk" }
+];
   // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {

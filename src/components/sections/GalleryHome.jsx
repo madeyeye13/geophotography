@@ -4,18 +4,20 @@ const GalleryHome = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Array of image sources
-  const images = [
-    '/image/gimage1.jpg',
-    '/image/gimage2.jpg',
-    '/image/gimage3.jpg',
-    '/image/gimage4.jpg',
-    '/image/gimage5.jpg',
-    '/image/gimage6.jpg',
-    '/image/gimage7.jpg',
-    '/image/gimage8.jpg',
-    '/image/gimage9.jpg'
-  ];
+  const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
+
+// Array of image sources (processed with asset helper)
+const images = [
+  asset("image/gimage1.jpg"),
+  asset("image/gimage2.jpg"),
+  asset("image/gimage3.jpg"),
+  asset("image/gimage4.jpg"),
+  asset("image/gimage5.jpg"),
+  asset("image/gimage6.jpg"),
+  asset("image/gimage7.jpg"),
+  asset("image/gimage8.jpg"),
+  asset("image/gimage9.jpg")
+];
 
   const openModal = (imageSrc, index) => {
     setSelectedImage(imageSrc);

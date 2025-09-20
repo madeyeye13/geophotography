@@ -4,60 +4,62 @@ import "./Header.css";
 const Header = () => {
   const headerRef = useRef(null);
   const navRef = useRef(null);
-  
+
+  // ✅ asset helper so it works in local + production (GitHub Pages etc.)
+  const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isNavActive, setIsNavActive] = useState(false);
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState({});
-  const [currentLogo, setCurrentLogo] = useState("/image/logo1.png");
+  const [currentLogo, setCurrentLogo] = useState(asset("image/logo1.png"));
 
-  // Update header background based on current state
+  // Update header background
   const updateHeaderBackground = () => {
     const shouldShowBg = isScrolled || isHovered || isNavActive || isMenuHovered;
-    
+
     if (headerRef.current) {
       if (shouldShowBg) {
-        headerRef.current.classList.add('show-bg');
+        headerRef.current.classList.add("show-bg");
       } else {
-        headerRef.current.classList.remove('show-bg');
+        headerRef.current.classList.remove("show-bg");
       }
     }
   };
 
-  // Update logo based on current state
+  // Update logo
   const updateLogo = () => {
     const shouldShowBlackLogo = isScrolled || isHovered || isNavActive || isMenuHovered;
-    setCurrentLogo(shouldShowBlackLogo ? "/image/logo2.png" : "/image/logo1.png");
+    setCurrentLogo(shouldShowBlackLogo ? asset("image/logo2.png") : asset("image/logo1.png"));
   };
 
-  // Scroll event handler
+  // Scroll
   const handleScroll = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     setIsScrolled(scrollTop > 50);
   };
 
-  // Setup desktop hover effects
+  // Desktop hover
   const setupDesktopHover = () => {
     if (window.innerWidth >= 1024 && navRef.current && headerRef.current) {
-      const navItems = navRef.current.querySelectorAll('ul > li, .nav-button');
-      
+      const navItems = navRef.current.querySelectorAll("ul > li, .nav-button");
+
       const handleMouseEnter = () => setIsHovered(true);
       const handleMouseLeave = () => setIsHovered(false);
-      
-      navItems.forEach(item => {
-        item.addEventListener('mouseenter', handleMouseEnter);
+
+      navItems.forEach((item) => {
+        item.addEventListener("mouseenter", handleMouseEnter);
       });
 
-      headerRef.current.addEventListener('mouseleave', handleMouseLeave);
-      
-      // Cleanup function
+      headerRef.current.addEventListener("mouseleave", handleMouseLeave);
+
       return () => {
-        navItems.forEach(item => {
-          item.removeEventListener('mouseenter', handleMouseEnter);
+        navItems.forEach((item) => {
+          item.removeEventListener("mouseenter", handleMouseEnter);
         });
         if (headerRef.current) {
-          headerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+          headerRef.current.removeEventListener("mouseleave", handleMouseLeave);
         }
       };
     }
@@ -68,29 +70,32 @@ const Header = () => {
     setIsNavActive(!isNavActive);
   };
 
-  // Toggle submenus on mobile/tablet
+  // Toggle submenus
   const handleSubmenuClick = (e, submenuKey) => {
     if (window.innerWidth < 1024) {
       e.preventDefault();
-      setOpenSubmenus(prev => ({
+      setOpenSubmenus((prev) => ({
         ...Object.keys(prev).reduce((acc, key) => ({ ...acc, [key]: false }), {}),
-        [submenuKey]: !prev[submenuKey]
+        [submenuKey]: !prev[submenuKey],
       }));
     }
   };
 
-  // Handle clicks outside nav on mobile
+  // Click outside nav
   const handleDocumentClick = (e) => {
     if (window.innerWidth < 1024 && isNavActive) {
-      if (navRef.current && headerRef.current && 
-          !navRef.current.contains(e.target) && 
-          !headerRef.current.querySelector('.menu-toggle').contains(e.target)) {
+      if (
+        navRef.current &&
+        headerRef.current &&
+        !navRef.current.contains(e.target) &&
+        !headerRef.current.querySelector(".menu-toggle").contains(e.target)
+      ) {
         setIsNavActive(false);
       }
     }
   };
 
-  // Handle window resize
+  // Resize
   const handleResize = () => {
     setIsHovered(false);
     setIsMenuHovered(false);
@@ -98,29 +103,25 @@ const Header = () => {
     setOpenSubmenus({});
   };
 
-  // Update header background and logo when states change
+  // Sync bg + logo
   useEffect(() => {
     updateHeaderBackground();
     updateLogo();
   }, [isScrolled, isHovered, isNavActive, isMenuHovered]);
 
   useEffect(() => {
-    // Add event listeners
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleDocumentClick);
-    window.addEventListener('resize', handleResize);
-    
-    // Setup hover effects
+    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("click", handleDocumentClick);
+    window.addEventListener("resize", handleResize);
+
     const cleanupHover = setupDesktopHover();
-    
-    // Initial scroll check
+
     handleScroll();
 
-    // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleDocumentClick);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleDocumentClick);
+      window.removeEventListener("resize", handleResize);
       if (cleanupHover) cleanupHover();
     };
   }, []);

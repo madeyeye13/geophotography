@@ -1,17 +1,19 @@
 import React from 'react';
 
 const AboutGeo = () => {
+    const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
+
   return (
     <section className="w-full">
       {/* Mobile and Tablet Layout */}
       <div className="lg:hidden">
         {/* Image */}
         <div className="w-full h-full md:h-80 bg-gray-200">
-          <img 
-            src="/image/himage5.jpg"
-            alt="Photography" 
-            className="w-full h-full object-cover"
-          />
+            <img 
+                src={asset("image/himage5.jpg")}
+                alt="Photography" 
+                className="w-full h-full object-cover"
+            />
         </div>
         
         {/* Content Container */}
