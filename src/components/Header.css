@@ -1,0 +1,364 @@
+.nav-button button {
+  all: revert;
+}
+
+a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /*----------------- HEADER -----------------*/
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: transparent;
+      z-index: 1000;
+      height: 70px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Header background overlay */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    header.show-bg::before {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Logo styling with transition */
+    .header-logo {
+  height: 15px;
+  width: auto;
+}
+
+.header-logo img {
+  height: 15px;
+  transition: opacity 0.3s ease; /* Optional: smooth transition when switching */
+}
+
+    .logo-white {
+      opacity: 1;
+    }
+
+    .logo-black {
+      opacity: 0;
+    }
+
+    header.show-bg .logo-white {
+      opacity: 0;
+    }
+
+    header.show-bg .logo-black {
+      opacity: 1;
+    }
+
+    /* Nav base */
+    nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 260px;
+      height: 100vh;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      padding: 80px 20px 20px;
+      color: black;
+    }
+
+    nav.active {
+      right: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav li a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+      color: inherit;
+      white-space: nowrap;
+      transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Text color transitions */
+    header {
+      color: white;
+    }
+
+    header.show-bg {
+      color: black;
+    }
+
+    /* Arrow icon styling */
+    .arrow-down {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    /* Submenu */
+    .submenu {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 0 0 15px;
+    }
+
+    .has-submenu.open > .submenu {
+      display: flex;
+    }
+
+    .has-submenu.open > a .arrow-down {
+      transform: rotate(180deg);
+    }
+
+    /* Button with sliding background effect */
+    .nav-button {
+      margin-top: 20px;
+    }
+
+    .nav-button button {
+      position: relative;
+      color: black;
+      background: transparent;
+      border: 2px solid black;
+      padding: 12px 20px; 
+      cursor: pointer;
+      overflow: hidden;
+      transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    /* Sliding background effect */
+    .nav-button button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: black;
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .nav-button button:hover::before {
+      left: 0;
+    }
+
+    .nav-button button:hover {
+      color: white;
+    }
+
+    /* Desktop button styling when header background shows */
+    @media (min-width: 1024px) {
+      .nav-button button {
+        color: white;
+        border-color: white;
+      }
+
+      .nav-button button::before {
+        background: white;
+      }
+
+      .nav-button button:hover {
+        color: black;
+      }
+
+      /* Button color changes when header background shows */
+      header.show-bg .nav-button button {
+        color: black;
+        border-color: black;
+      }
+
+      header.show-bg .nav-button button::before {
+        background: black;
+      }
+
+      header.show-bg .nav-button button:hover {
+        color: white;
+      }
+    }
+
+    /* Toggle icons */
+    .menu-toggle {
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .menu-toggle svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .menu-icon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .close-icon {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+
+    /* When nav is active, swap icon visibility */
+    nav.active ~ .header-container .menu-toggle .menu-icon {
+      opacity: 0;
+      transform: rotate(-90deg);
+    }
+
+    nav.active ~ .header-container .menu-toggle .close-icon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    /* Tablet (>=728px) */
+    @media (min-width: 728px) {
+      nav {
+        width: 320px;
+      }
+    }
+
+    /* Desktop (>=1024px) */
+    @media (min-width: 1024px) {
+      nav {
+        position: static;
+        height: auto;
+        width: auto;
+        box-shadow: none;
+        padding: 0;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        color: inherit;
+      }
+
+      nav ul {
+        flex-direction: row;
+        gap: 30px;
+      }
+
+      .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        padding: 10px 0;
+        display: none;
+        min-width: 180px;
+        z-index: 2000;
+        border-radius: 4px;
+        color: black;
+      }
+
+      .submenu li a {
+        padding: 10px 15px;
+        display: block;
+        transition: background-color 0.2s ease;
+        color: black;
+      }
+
+      .submenu li a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .has-submenu:hover > .submenu {
+        display: block;
+      }
+
+      .has-submenu:hover > a .arrow-down {
+        transform: rotate(180deg);
+      }
+
+      .nav-button {
+        margin-top: 0;
+        margin-left: 20px;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      /* Desktop hover area for background trigger */
+      .nav-hover-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+    }
+
+    /* Mobile navigation always shows background */
+    @media (max-width: 1023px) {
+      /* Menu toggle hover effect on mobile */
+      .menu-toggle:hover ~ .header-container,
+      nav.active ~ .header-container {
+        color: black;
+      }
+
+      .menu-toggle:hover ~ .header-container .logo-white,
+      nav.active ~ .header-container .logo-white {
+        opacity: 0;
+      }
+
+      .menu-toggle:hover ~ .header-container .logo-black,
+      nav.active ~ .header-container .logo-black {
+        opacity: 1;
+      }
+
+      /* Show background on menu toggle hover or nav active */
+      header:has(.menu-toggle:hover)::before,
+      header:has(nav.active)::before {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
