@@ -23,7 +23,7 @@ const WelcomeAbout = () => {
 
           {/* Right Column - Description Text */}
           <div className="pr-0 lg:pr-8 text-center lg:text-left">
-            <p className="text-gray-700 text-base sm:text-xl lg:text-sm leading-relaxed lg:leading-normal font-regular tracking-wide">
+            <p className="text-gray-700 text-sm sm:text-xl lg:text-sm leading-relaxed lg:leading-normal font-regular tracking-wide">
               Life is too short to live it on autopilot. When is the last time you truly allowed yourself to disconnect? Leave your thoughts, worries and devices at home, and simply let your mind wander around? Breathe deeply and reconnect with the simple joys of being present. Let curiosity guide your steps without a set destination. Rediscover the beauty in small, everyday moments. It's in these moments of stillness and clarity that you often find what truly matters — and where you truly find yourself.
             </p>
           </div>

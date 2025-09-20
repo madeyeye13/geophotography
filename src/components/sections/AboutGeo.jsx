@@ -26,13 +26,13 @@ const AboutGeo = () => {
             Welcome To Geo Photography
           </h3>
           
-          <p className="text-gray-700 text-base md:text-base leading-relaxed mb-8">
+          <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-8">
             Established in 2018, Geo Photography is a professional photography company with branches in Ibadan and Ile-Ife, and a growing presence in the United Kingdom through freelance services. We specialize in a wide range of photography solutions, including maternity shoots, personal portraits, and comprehensive event coverage. Over the years, we have worked with individuals and brands to create compelling visual stories that enhance personal memories and strengthen brand identities.
           </p>
           
-          <button className="relative overflow-hidden bg-black text-white px-8 py-3 text-sm md:text-base font-medium transition-all duration-300 hover:text-black group">
+          <button className="relative overflow-hidden bg-black text-white px-8 py-3 text-sm md:text-base font-medium transition-all duration-300 hover:text-black active:text-black group">
             <span className="relative z-10">Read More</span>
-            <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0"></div>
+            <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-300 group-hover:translate-x-0 group-active:translate-x-0"></div>
           </button>
         </div>
       </div>
@@ -42,7 +42,7 @@ const AboutGeo = () => {
         {/* Image - Left Side */}
         <div className="w-1/2 h-full">
           <img 
-            src="/image/himage5.jpg" 
+            src={asset("image/himage5.jpg")}
             alt="Photography" 
             className="w-full h-full object-cover"
           />

@@ -5,11 +5,12 @@ const HeroSection = () => {
 
   const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
 
-const slides = [
-  { image: asset("image/himage01.jpg"), indicator: "1/3", buttonText: "Geo Ibadan", buttonHref: "/geo-ibadan" },
-  { image: asset("image/himage2.jpg"), indicator: "2/3", buttonText: "Geo Ile-Ife", buttonHref: "/geo-ile-ife" },
-  { image: asset("image/himage3.jpg"), indicator: "3/3", buttonText: "Geo UK", buttonHref: "/geo-uk" }
-];
+  const slides = [
+    { image: asset("image/himage01.jpg"), indicator: "1/3", buttonText: "Geo Ibadan", buttonHref: "/geo-ibadan" },
+    { image: asset("image/himage2.jpg"), indicator: "2/3", buttonText: "Geo Ile-Ife", buttonHref: "/geo-ile-ife" },
+    { image: asset("image/himage3.jpg"), indicator: "3/3", buttonText: "Geo UK", buttonHref: "/geo-uk" }
+  ];
+
   // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,28 +60,36 @@ const slides = [
             Choose a branch
           </p>
           
-          {/* Button with sliding background effect */}
+          {/* Button with sliding background effect - MOBILE FRIENDLY */}
           <div className="mb-12">
             <a
               href={slides[currentSlide].buttonHref}
-              className="relative inline-block px-8 py-3 md:px-12 md:py-4 text-base md:text-lg font-semibold text-black bg-white transition-colors duration-300 overflow-hidden group hover:text-white"
+              className="relative inline-block px-8 py-3 md:px-12 md:py-4 text-base md:text-lg font-semibold text-black bg-white transition-colors duration-300 overflow-hidden group hover:text-white active:text-white focus:text-white"
+              style={{
+                WebkitTapHighlightColor: 'transparent' // Remove iOS tap highlight
+              }}
             >
-              <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">{slides[currentSlide].buttonText}</span>
-              {/* Sliding background */}
-              <div className="absolute inset-0 bg-gray-600 transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></div>
+              <span className="relative z-10 text-black group-hover:text-white group-active:text-white group-focus:text-white transition-colors duration-300">
+                {slides[currentSlide].buttonText}
+              </span>
+              {/* Sliding background - works on mobile with active state */}
+              <div className="absolute inset-0 bg-gray-600 transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0 group-active:translate-x-0 group-focus:translate-x-0"></div>
             </a>
           </div>
           
           {/* Border line */}
           <div className="w-full h-px bg-white opacity-60 mx-auto mb-8"></div>
           
-          {/* Navigation */}
+          {/* Navigation - Mobile friendly arrow buttons */}
           <div className="flex items-center justify-center space-x-8">
-            {/* Left Arrow */}
+            {/* Left Arrow - Mobile friendly */}
             <button
               onClick={prevSlide}
-              className="p-2 text-white hover:text-gray-300 transition-colors duration-200"
+              className="p-2 text-white hover:text-gray-300 active:text-gray-300 transition-colors duration-200 touch-manipulation"
               aria-label="Previous slide"
+              style={{
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -97,11 +106,14 @@ const slides = [
               {slides[currentSlide].indicator}
             </span>
             
-            {/* Right Arrow */}
+            {/* Right Arrow - Mobile friendly */}
             <button
               onClick={nextSlide}
-              className="p-2 text-white hover:text-gray-300 transition-colors duration-200"
+              className="p-2 text-white hover:text-gray-300 active:text-gray-300 transition-colors duration-200 touch-manipulation"
               aria-label="Next slide"
+              style={{
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 

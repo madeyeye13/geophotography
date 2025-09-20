@@ -3,21 +3,22 @@ import React, { useState } from 'react';
 const GalleryHome = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [pressedImageIndex, setPressedImageIndex] = useState(null);
 
   const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
 
-// Array of image sources (processed with asset helper)
-const images = [
-  asset("image/gimage1.jpg"),
-  asset("image/gimage2.jpg"),
-  asset("image/gimage3.jpg"),
-  asset("image/gimage4.jpg"),
-  asset("image/gimage5.jpg"),
-  asset("image/gimage6.jpg"),
-  asset("image/gimage7.jpg"),
-  asset("image/gimage8.jpg"),
-  asset("image/gimage9.jpg")
-];
+  // Array of image sources (processed with asset helper)
+  const images = [
+    asset("image/gimage1.jpg"),
+    asset("image/gimage2.jpg"),
+    asset("image/gimage3.jpg"),
+    asset("image/gimage4.jpg"),
+    asset("image/gimage5.jpg"),
+    asset("image/gimage6.jpg"),
+    asset("image/gimage7.jpg"),
+    asset("image/gimage8.jpg"),
+    asset("image/gimage9.jpg")
+  ];
 
   const openModal = (imageSrc, index) => {
     setSelectedImage(imageSrc);
@@ -47,31 +48,61 @@ const images = [
     }
   };
 
+  // Handle touch/press events for mobile
+  const handleImagePress = (index) => {
+    setPressedImageIndex(index);
+  };
+
+  const handleImageRelease = () => {
+    setPressedImageIndex(null);
+  };
+
   return (
     <section className="w-full bg-white">
       {/* Gallery Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0">
         {images.map((src, index) => (
-          <div key={index} className="w-full relative overflow-hidden group">
+          <div 
+            key={index} 
+            className="w-full relative overflow-hidden group"
+            onTouchStart={() => handleImagePress(index)}
+            onTouchEnd={handleImageRelease}
+            onMouseDown={() => handleImagePress(index)}
+            onMouseUp={handleImageRelease}
+            onMouseLeave={handleImageRelease}
+            style={{
+              WebkitTapHighlightColor: 'transparent'
+            }}
+          >
             {/* Original Image */}
             <img
               src={src}
               alt={`Gallery image ${index + 1}`}
-              className="w-full h-48 md:h-56 lg:h-100 object-cover cursor-pointer transition-opacity duration-300 hover:opacity-90"
+              className="w-full h-48 md:h-56 lg:h-100 object-cover cursor-pointer transition-opacity duration-300 hover:opacity-90 active:opacity-90"
               onClick={() => openModal(src, index)}
             />
-            {/* Sliding Duplicate Image */}
+            {/* Sliding Duplicate Image - Works on desktop hover AND mobile touch */}
             <img
               src={src}
               alt={`Gallery image ${index + 1} overlay`}
               className={`absolute inset-0 w-full h-48 md:h-56 lg:h-100 object-cover cursor-pointer transition-transform duration-500 ease-out ${
-                index % 4 === 0 
-                  ? 'transform -translate-y-full group-hover:translate-y-0' // Slide from top
-                  : index % 4 === 1 
-                  ? 'transform -translate-x-full group-hover:translate-x-0' // Slide from left
-                  : index % 4 === 2
-                  ? 'transform translate-y-full group-hover:translate-y-0' // Slide from bottom
-                  : 'transform translate-x-full group-hover:translate-x-0' // Slide from right
+                pressedImageIndex === index
+                  ? // Mobile pressed state - show the overlay
+                    index % 4 === 0 
+                      ? 'transform translate-y-0' 
+                      : index % 4 === 1 
+                      ? 'transform translate-x-0' 
+                      : index % 4 === 2
+                      ? 'transform translate-y-0' 
+                      : 'transform translate-x-0'
+                  : // Default state with hover effects (works on desktop)
+                    index % 4 === 0 
+                      ? 'transform -translate-y-full group-hover:translate-y-0 group-active:translate-y-0' // Slide from top
+                      : index % 4 === 1 
+                      ? 'transform -translate-x-full group-hover:translate-x-0 group-active:translate-x-0' // Slide from left
+                      : index % 4 === 2
+                      ? 'transform translate-y-full group-hover:translate-y-0 group-active:translate-y-0' // Slide from bottom
+                      : 'transform translate-x-full group-hover:translate-x-0 group-active:translate-x-0' // Slide from right
               }`}
               onClick={() => openModal(src, index)}
             />
@@ -85,10 +116,13 @@ const images = [
           className="fixed inset-0 bg-white z-[9999] flex items-center justify-center"
           onClick={handleBackdropClick}
         >
-          {/* Close Button */}
+          {/* Close Button - Mobile Friendly */}
           <button
             onClick={closeModal}
-            className="absolute top-4 right-4 z-[10000] p-2 text-black hover:text-gray-600 transition-colors"
+            className="absolute top-4 right-4 z-[10000] p-2 text-black hover:text-gray-600 active:text-gray-600 transition-colors"
+            style={{
+              WebkitTapHighlightColor: 'transparent'
+            }}
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -100,10 +134,13 @@ const images = [
             </svg>
           </button>
 
-          {/* Previous Arrow */}
+          {/* Previous Arrow - Mobile Friendly */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 z-[10000] p-2 text-black hover:text-gray-600 transition-colors"
+            className="absolute left-4 z-[10000] p-2 text-black hover:text-gray-600 active:text-gray-600 transition-colors"
+            style={{
+              WebkitTapHighlightColor: 'transparent'
+            }}
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -115,10 +152,13 @@ const images = [
             </svg>
           </button>
 
-          {/* Next Arrow */}
+          {/* Next Arrow - Mobile Friendly */}
           <button
             onClick={goToNext}
-            className="absolute right-4 z-[10000] p-2 text-black hover:text-gray-600 transition-colors"
+            className="absolute right-4 z-[10000] p-2 text-black hover:text-gray-600 active:text-gray-600 transition-colors"
+            style={{
+              WebkitTapHighlightColor: 'transparent'
+            }}
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

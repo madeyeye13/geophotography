@@ -5,6 +5,7 @@ const PricingSection = () => {
   const intervalRef = useRef(null);
   const startX = useRef(0);
   const isDragging = useRef(false);
+  
   const plans = [
     {
       name: "Commercial",
@@ -199,10 +200,15 @@ const PricingSection = () => {
                         </div>
                       </div>
 
-                      {/* Book Now Button */}
-                      <button className="w-full relative overflow-hidden bg-black text-white py-3 px-6 text-base font-medium transition-all duration-500 hover:text-black group">
+                      {/* Book Now Button - Mobile Friendly */}
+                      <button 
+                        className="w-full relative overflow-hidden bg-black text-white py-3 px-6 text-base font-medium transition-all duration-500 hover:text-black active:text-black focus:text-black group"
+                        style={{
+                          WebkitTapHighlightColor: 'transparent'
+                        }}
+                      >
                         <span className="relative z-10">Book Now</span>
-                        <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0"></div>
+                        <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 group-active:translate-x-0 group-focus:translate-x-0"></div>
                       </button>
                     </div>
                   </div>
@@ -211,11 +217,14 @@ const PricingSection = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation Arrows */}
+          {/* Mobile Navigation Arrows - Mobile Friendly */}
           <div className="flex justify-center mt-6 space-x-4">
             <button
               onClick={() => handleArrowClick('prev')}
-              className="p-3 text-gray-700 hover:text-black transition-colors duration-200"
+              className="p-3 text-gray-700 hover:text-black active:text-black transition-colors duration-200"
+              style={{
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -228,7 +237,10 @@ const PricingSection = () => {
             </button>
             <button
               onClick={() => handleArrowClick('next')}
-              className="p-3 text-gray-700 hover:text-black transition-colors duration-200"
+              className="p-3 text-gray-700 hover:text-black active:text-black transition-colors duration-200"
+              style={{
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -254,6 +266,9 @@ const PricingSection = () => {
                 className={`w-2 h-2 rounded-full transition-colors duration-200 ${
                   currentIndex === index ? 'bg-gray-800' : 'bg-gray-300'
                 }`}
+                style={{
+                  WebkitTapHighlightColor: 'transparent'
+                }}
               />
             ))}
           </div>
@@ -306,10 +321,15 @@ const PricingSection = () => {
                   </div>
                 </div>
 
-                {/* Book Now Button */}
-                <button className="w-full relative overflow-hidden bg-black text-white py-3 px-6 text-base font-medium transition-all duration-500 hover:text-black group">
+                {/* Book Now Button - Desktop Mobile Friendly */}
+                <button 
+                  className="w-full relative overflow-hidden bg-black text-white py-3 px-6 text-base font-medium transition-all duration-500 hover:text-black active:text-black focus:text-black group"
+                  style={{
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
+                >
                   <span className="relative z-10">Book Now</span>
-                  <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0"></div>
+                  <div className="absolute inset-0 bg-gray-400 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0 group-active:translate-x-0 group-focus:translate-x-0"></div>
                 </button>
               </div>
             </div>
