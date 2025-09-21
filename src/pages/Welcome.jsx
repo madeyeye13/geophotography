@@ -4,6 +4,8 @@ import AboutGeo from '../components/sections/AboutGeo';
 import GalleryHome from '../components/sections/GalleryHome';
 import ContactMeHome from '../components/sections/ContactMeHome';
 import PricingSection from '../components/sections/PricingSection';
+import BlogSection from '../components/sections/BlogSection';
+
 function Welcome() {
   return (
 
@@ -14,6 +16,7 @@ function Welcome() {
       <GalleryHome />
       <ContactMeHome />
       <PricingSection />
+      <BlogSection />
       
     </main>
    

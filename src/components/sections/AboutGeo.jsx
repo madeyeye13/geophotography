@@ -8,7 +8,7 @@ const AboutGeo = () => {
       {/* Mobile and Tablet Layout */}
       <div className="lg:hidden">
         {/* Image */}
-        <div className="w-full h-full md:h-80 bg-gray-200">
+        <div className="w-full h-full md:h-full bg-gray-200">
             <img 
                 src={asset("image/himage5.jpg")}
                 alt="Photography" 
@@ -17,7 +17,7 @@ const AboutGeo = () => {
         </div>
         
         {/* Content Container */}
-        <div className="w-full px-6 py-8 md:px-8 md:py-12" style={{ backgroundColor: '#e5e5db' }}>
+        <div className="w-full px-6 py-8 md:px-8 md:py-12" style={{ backgroundColor: '#ffff' }}>
           <h2 className="text-sm md:text-base text-gray-600 mb-4 font-light tracking-wide">
             Helping brands since 2018
           </h2>

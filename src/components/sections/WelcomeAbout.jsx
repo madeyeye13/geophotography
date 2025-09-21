@@ -16,8 +16,8 @@ const WelcomeAbout = () => {
             
             {/* Subtitle */}
             <p className="text-xs sm:text-base lg:text-xs text-gray-600 font-medium tracking-[0.2em] uppercase mt-12 lg:mt-16 leading-relaxed">
-              Portrait and Lifestyle Photographer, Based in<br className="hidden sm:block" />
-              Canada.
+              Portrait and Lifestyle Photographer, Based in <br className="hidden sm:block" />
+              Nigeria.
             </p>
           </div>
 
